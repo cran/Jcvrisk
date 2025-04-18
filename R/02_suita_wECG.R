@@ -59,8 +59,8 @@ suita_ecg <- function(data) {
                              ifelse(data$totalscore >= 1 & data$totalscore <= 20, 2,
                                     ifelse(data$totalscore >= 21 & data$totalscore <= 25, 6,
                                            ifelse(data$totalscore >= 26 & data$totalscore <= 30, 9,
-                                                  ifelse(data$totalscore >= 31 & data$totalscore <= 35, 14,
-                                                         ifelse(data$totalscore >= 36, 25, NA))))))
+                                                  ifelse(data$totalscore >= 31 & data$totalscore <= 35, 15,
+                                                         ifelse(data$totalscore >= 36, 26, NA))))))
 
   return(data$ten_year_risk)
 }

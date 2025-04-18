@@ -1,3 +1,10 @@
-# Jcvrisk 0.1.0
+# Jcvrisk 0.1.1 (2025-04-18)
+
+- Fixed a calculation error in the `suita_wECG()` function for estimated 10-year risk values.
+  - For individuals with SCORE = 30–35: the risk estimate was corrected from 14% to 15%.
+  - For individuals with SCORE ≥ 36: the risk estimate was corrected from 25% to 26%.
+
+
+# Jcvrisk 0.1.0 (2024-10-22)
 
 * Initial CRAN submission.
