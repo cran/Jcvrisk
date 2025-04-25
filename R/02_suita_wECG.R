@@ -28,7 +28,7 @@ suita_ecg <- function(data) {
   nonhdl <- data$tc - data$hdl
 
   # Calculate scores
-  data$sex_score <- ifelse(data$sex == 0, 4, 0)
+  data$sex_score <- ifelse(data$sex == 1, 4, 0)
   data$bp_score <- ifelse(data$sbp >= 160 | data$dbp >= 100, 6,
                         ifelse((data$sbp >= 140 & data$sbp < 160) | (data$dbp >= 90 & data$dbp < 100), 3,
                                ifelse((data$sbp >= 120 & data$sbp < 139) | (data$dbp >= 80 & data$dbp < 89), 0, -4)))

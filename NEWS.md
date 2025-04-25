@@ -1,3 +1,9 @@
+# Jcvrisk 0.1.2 (2025-04-20)
+
+- Fixed a calculation error in the `suita_wECG()` and `suita_ECG()` function for estimated 10-year risk values.
+  - Risk calculation about sex was corrected from [male=0, female =1] to [male=1, female =2].
+
+
 # Jcvrisk 0.1.1 (2025-04-18)
 
 - Fixed a calculation error in the `suita_wECG()` function for estimated 10-year risk values.
