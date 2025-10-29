@@ -1,4 +1,3 @@
-# EPOCH-JAPAN score calculation for data frame
 epoch_stroke <- function(data) {
   required_cols <- c("age", "urineprotein", "sbp", "t2dm", "smoking")
 
@@ -46,13 +45,13 @@ epoch_stroke <- function(data) {
 
   # Calculate risk for each individual
   data$risk <- 1 - base^exp((37.40606 * log(data$age) +
-                             8.24292 * data$smoking +
-                             26.39953 * log(data$sbp) +
-                             0.45679 * data$t2dm +
-                             0.63621 * data$urineprotein -
-                             5.92290 * (log(data$age) * log(data$sbp)) -
-                             1.84505 * (log(data$age) * data$smoking) -
-                             betamean))
+                               8.24292 * data$smoking +
+                               26.39953 * log(data$sbp) +
+                               0.45679 * data$t2dm +
+                               0.63621 * data$urineprotein -
+                               5.92290 * (log(data$age) * log(data$sbp)) -
+                               1.84505 * (log(data$age) * data$smoking) -
+                               betamean))
 
   return(data$risk)
 }

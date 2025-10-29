@@ -11,7 +11,7 @@ epoch_stroke(data)
 \description{
  epoch_stroke() calculates the absolute 10-year risk of death from stroke.
 
- Mandatory variables: "age", "urineprotein", "sbp", "t2dm", "smoking"
+ Mandatory variables: "age", "urineprotein", "sbp", "t2dm", "smoking".
  These variables must be applied with the above spelling.
 
  The details of this prediction model should be referred to the original article.

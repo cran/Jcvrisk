@@ -1,6 +1,5 @@
-# Suita score calculation with ECG for data frame
-suita_ecg <- function(data) {
-  required_cols <- c("age", "sex", "sbp", "dbp", "t2dm", "tc", "hdl", "ldl", "urineprotein", "smoking", "af", "lvh")
+suita_wECG <- function(data) {
+  required_cols <- c("age", "male", "sbp", "dbp","ht_medication", "t2dm", "tc", "hdl", "ldl", "urineprotein", "smoking", "af", "lvh")
 
   # Check for required columns
   if (!all(required_cols %in% names(data))) {
@@ -28,12 +27,12 @@ suita_ecg <- function(data) {
   nonhdl <- data$tc - data$hdl
 
   # Calculate scores
-  data$sex_score <- ifelse(data$sex == 1, 4, 0)
-  data$bp_score <- ifelse(data$sbp >= 160 | data$dbp >= 100, 6,
-                        ifelse((data$sbp >= 140 & data$sbp < 160) | (data$dbp >= 90 & data$dbp < 100), 3,
-                               ifelse((data$sbp >= 120 & data$sbp < 139) | (data$dbp >= 80 & data$dbp < 89), 0, -4)))
+  data$male_score <- ifelse(data$male == 1, 4, 0)
+  data$bp_score <- ifelse(data$sbp >= 160 | data$dbp >= 100 | data$ht_medication == 1 , 6,
+                          ifelse((data$sbp >= 140 & data$sbp < 160) | (data$dbp >= 90 & data$dbp < 100), 3,
+                                 ifelse((data$sbp >= 120 & data$sbp < 139) | (data$dbp >= 80 & data$dbp < 89), 0, -4)))
   data$hdl_score <- ifelse(data$hdl < 40, 0,
-                         ifelse(data$hdl >= 40 & data$hdl < 60, -2, -4))
+                           ifelse(data$hdl >= 40 & data$hdl < 60, -2, -4))
   data$cho_score <- ifelse((nonhdl < 170 & data$ldl < 140), 0, 2)
   data$urineprotein_score <- ifelse(data$urineprotein == 1, 2, 0)
   data$t2dm_score <- ifelse(data$t2dm == 1, 6, 0)
@@ -42,25 +41,25 @@ suita_ecg <- function(data) {
   data$lvh_score <- ifelse(data$lvh == 1, 5, 0)
 
   data$age_rank <- ifelse(data$age >= 30 & data$age < 40, 0,
-                        ifelse(data$age >= 40 & data$age < 50, 8,
-                               ifelse(data$age >= 50 & data$age < 60, 14,
-                                      ifelse(data$age >= 60 & data$age < 65, 18,
-                                             ifelse(data$age >= 65 & data$age < 70, 22,
-                                                    ifelse(data$age >= 70 & data$age < 75, 25,
-                                                           ifelse(data$age >= 75 & data$age < 80, 28, 28)))))))
+                          ifelse(data$age >= 40 & data$age < 50, 8,
+                                 ifelse(data$age >= 50 & data$age < 60, 14,
+                                        ifelse(data$age >= 60 & data$age < 65, 18,
+                                               ifelse(data$age >= 65 & data$age < 70, 22,
+                                                      ifelse(data$age >= 70 & data$age < 75, 25,
+                                                             ifelse(data$age >= 75 & data$age < 80, 28, 28)))))))
 
   # Total score
-  data$totalscore <- data$sex_score + data$bp_score + data$hdl_score + data$cho_score +
+  data$totalscore <- data$male_score + data$bp_score + data$hdl_score + data$cho_score +
     data$urineprotein_score + data$t2dm_score + data$smoking_score +
     data$age_rank + data$af_score + data$lvh_score
 
   # Calculate 10-year risk
   data$ten_year_risk <- ifelse(data$totalscore <= 0, 1,
-                             ifelse(data$totalscore >= 1 & data$totalscore <= 20, 2,
-                                    ifelse(data$totalscore >= 21 & data$totalscore <= 25, 6,
-                                           ifelse(data$totalscore >= 26 & data$totalscore <= 30, 9,
-                                                  ifelse(data$totalscore >= 31 & data$totalscore <= 35, 15,
-                                                         ifelse(data$totalscore >= 36, 26, NA))))))
+                               ifelse(data$totalscore >= 1 & data$totalscore <= 20, 2,
+                                      ifelse(data$totalscore >= 21 & data$totalscore <= 25, 6,
+                                             ifelse(data$totalscore >= 26 & data$totalscore <= 30, 9,
+                                                    ifelse(data$totalscore >= 31 & data$totalscore <= 35, 15,
+                                                           ifelse(data$totalscore >= 36, 26, NA))))))
 
   return(data$ten_year_risk)
 }

@@ -11,7 +11,7 @@ epoch_chd(data)
 \description{
  epoch_chd() calculates the absolute 10-year risk of death from coronary heart disease (CHD).
 
- Mandatory variables: "age", "sex", "urineprotein", "sbp", "t2dm", "tc", "hdl", "smoking"
+ Mandatory variables: "age", "male", "urineprotein", "sbp", "t2dm", "tc", "hdl", "smoking".
  These variables must be applied with the above spelling.
 
  The details of this prediction model should be referred to the original article.
@@ -46,7 +46,7 @@ epoch_chd() returns the NA if the required variables were missing, or NAs were g
 
 data <- data.frame(
   age = c(39, 85, 70),
-  sex = c(1, 2, 2),
+  male = c(1, 0, 0),
   sbp = c(120, 130, 135),
   t2dm = c(NA, 1, 1),
   tc = c(180, 110, 185),
@@ -56,7 +56,7 @@ data <- data.frame(
 )
 
 # age          :age(continuous)
-# sex          :sex(category: 1 = male, 2 = female)
+# male         :male(category: 0 = female, 1 = male)
 # sbp          :systolic blood pressure(continuous)
 # t2dm         :diabetes mellitus(category: 0 = non-prevalent DM, 1 = prevalent DM)
 # tc           :total cholesterol(continuous)

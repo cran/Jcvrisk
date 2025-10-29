@@ -1,8 +1,8 @@
-\name{suita}
-\alias{suita}
+\name{suita_woECG}
+\alias{suita_woECG}
 \title{10-year risk calculation for CVD events based on the Suita study without electrocardiogram model}
 \usage{
-suita(data)
+suita_woECG(data)
 }
 \arguments{
     \item{data}{A data frame containing the variables to estimate risk.}
@@ -11,7 +11,7 @@ suita(data)
 \description{
  suita() calculates the 10-year probability of developing the first incidence of cardiovascular disease(CVD) (stroke or coronary heart disease) without electrocardiogram (ECG).
 
- Mandatory variables: "age", "sex", "sbp", "dbp", "t2dm", "tc", "hdl", "ldl", "urineprotein", "smoking".
+ Mandatory variables: "age", "male", "sbp", "dbp", "ht_medication", "t2dm", "tc", "hdl", "ldl", "urineprotein", "smoking".
  These variables must be applied with the above spelling.
 
  The details of this prediction model should be referred to the original article.
@@ -34,7 +34,7 @@ If you contact this warning message, the data frame did not contain required var
 
 2."Data frame contains NA values in required columns.":
 
-suita() returns the NA if the required variables were missing, or NAs were generated in the calculation process.
+suita_woECG() returns the NA if the required variables were missing, or NAs were generated in the calculation process.
 
 3."Some individuals are aged 80 or older. results may not be accurate.":
 
@@ -51,9 +51,10 @@ In the calculation process, when the participants' age is outside of the range, 
 \examples{
 data <- data.frame(
   age = c(45, 55, 90),
-  sex = c(1, 2, 1),
+  male = c(1, 0, 1),
   sbp = c(120, 130, 145),
   dbp = c(80, 90, 110),
+  ht_medication = c(0, 1, 0),
   t2dm = c(0, 1, 0),
   tc = c(180, 160, 210),
   hdl = c(55, 45, 35),
@@ -62,16 +63,17 @@ data <- data.frame(
   smoking = c(0, 1, 0)
 )
 
-# age          :age(continuous)
-# sex          :sex(category: 1 = male, 2 = female)
-# sbp          :systolic blood pressure(continuous)
-# dbp          :diastolic blood pressure(continuous)
-# t2dm         :diabetes mellitus(category: 0 = non-prevalent DM, 1 = prevalent DM)
-# tc           :total cholesterol(continuous)
-# hdl          :high-density lipoprotein cholesterol(continuous)
-# ldl          :low-density lipoprotein cholesterol(continuous)
-# urineprotein :proteinuria(category: 0 = negative, 1 = positive)
-# smoking      :smoking status(category: 0 = never/past smoker, 1 = current smoker)
+# age           :age(continuous)
+# male          :male(category: 0 = female, 1 = male)
+# sbp           :systolic blood pressure(continuous)
+# dbp           :diastolic blood pressure(continuous)
+# ht_medication :hypertensive medication user(category:0 = non-user,1 = user)
+# t2dm          :diabetes mellitus(category: 0 = non-prevalent DM, 1 = prevalent DM)
+# tc            :total cholesterol(continuous)
+# hdl           :high-density lipoprotein cholesterol(continuous)
+# ldl           :low-density lipoprotein cholesterol(continuous)
+# urineprotein  :proteinuria(category: 0 = negative, 1 = positive)
+# smoking       :smoking status(category: 0 = never/past smoker, 1 = current smoker)
 
-suita(data)
+suita_woECG(data)
 }

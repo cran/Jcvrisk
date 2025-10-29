@@ -11,7 +11,7 @@ epoch_cvd(data)
 \description{
  epoch_cvd() calculates the absolute 10-year risk of death from cardiovascular disease (CVD).
 
- Mandatory variables: "age", "sex", "urineprotein", "sbp", "t2dm", "smoking".
+ Mandatory variables: "age", "male", "urineprotein", "sbp", "t2dm", "smoking".
  These variables must be applied with the above spelling.
 
  The details of this prediction model should be referred to the original article.
@@ -43,7 +43,7 @@ epoch_cvd() returns the NA if the required variables were missing, or NAs were g
 \examples{
 data <- data.frame(
   age = c(39, 85, 70),
-  sex = c(1, 2, 1),
+  male = c(1, 0, 1),
   sbp = c(120, 130, 140),
   t2dm = c(NA, 1, 0),
   urineprotein = c(1, 1, 0),
@@ -51,7 +51,7 @@ data <- data.frame(
 )
 
 # age          :age(continuous)
-# sex          :sex(category: 1 = male, 2 = female)
+# male         :male(category:0 = female, 1 = male)
 # sbp          :systolic blood pressure(continuous)
 # t2dm         :diabetes mellitus(category: 0 = non-prevalent DM, 1 = prevalent DM)
 # urineprotein :proteinuria(category: 0 = negative, 1 = positive)

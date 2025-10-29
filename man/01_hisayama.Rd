@@ -1,6 +1,6 @@
 \name{hisayama}
 \alias{hisayama}
-\title{10-year risk calculation for ASCVD based on the Hisayama study}
+\title{10-year risk calculation for ASCVD events based on the Hisayama study}
 \usage{
 hisayama(data)
 }
@@ -10,7 +10,7 @@ hisayama(data)
 
 \description{
  hisayama() calculates the 10-year probability of developing the first atherosclerotic cardiovascular disease (ASCVD) event.
- Mandatory variables: "age", "sex", "sbp", "t2dm", "hdl", "ldl", "urineprotein", "smoking", "exercise".
+ Mandatory variables: "age", "male", "sbp", "t2dm", "hdl", "ldl", "urineprotein", "smoking", "exercise".
  These variables must be applied with the above spelling.
 
  The details of this prediction model should be referred to the original article.
@@ -22,6 +22,8 @@ hisayama(data)
 
  PMID:33487620
 }
+
+
 \value{
 Based on the mandatory variables, a risk probability will be calculated for each line.
 The primary cautions are as follows,
@@ -49,7 +51,7 @@ This risk prediction model was developed based on the Hisayama study participant
 \examples{
 data <- data.frame(
   age = c(45, 55, 90),
-  sex = c(1, 2, 1),
+  male = c(1, 0, 1),
   sbp = c(120, 130, 145),
   t2dm = c(0, 1, 0),
   hdl = c(55, 45, 35),
@@ -59,15 +61,15 @@ data <- data.frame(
   exercise = c(1, 0, 1)
 )
 
-# age         :age(continuous)
-# sex         :sex(category:1 = male,2 = female)
-# sbp         :systolic blood pressure(continuous)
-# t2dm        :diabetes mellitus(category:0 = non-prevalent DM,1 = prevalent DM)
-# hdl         :high-density lipoprotein cholesterol(continuous)
-# ldl         :low-density lipoprotein cholesterol(continuous)
-# urineprotein:proteinuria(category:0 = negative,1 = positive)
-# smoking     :smoking status(category:0 = never/past smoker,1 = current smoker)
-# exercise    :weekly exercise(category:0 = less than 3 times,1 = 3 times or more)
+# age          :age(continuous)
+# male         :male(category:0 = female,1 = male)
+# sbp          :systolic blood pressure(continuous)
+# t2dm         :diabetes mellitus(category:0 = non-prevalent DM,1 = prevalent DM)
+# hdl          :high-density lipoprotein cholesterol(continuous)
+# ldl          :low-density lipoprotein cholesterol(continuous)
+# urineprotein :proteinuria(category:0 = negative,1 = positive)
+# smoking      :smoking status(category:0 = never/past smoker,1 = current smoker)
+# exercise     :weekly exercise(category:0 = less than 3 times,1 = 3 times or more)
 
 
 hisayama(data)

@@ -1,6 +1,5 @@
-# EPOCH-JAPAN score calculation for data frame
 epoch_chd <- function(data) {
-  required_cols <- c("age", "sex", "urineprotein", "sbp", "t2dm", "tc", "hdl", "smoking")
+  required_cols <- c("age", "male", "urineprotein", "sbp", "t2dm", "tc", "hdl", "smoking")
 
   # Check for required columns
   if (!all(required_cols %in% names(data))) {
@@ -26,7 +25,7 @@ epoch_chd <- function(data) {
 
   # Define variables
   base <- 0.9981
-  data$male <- ifelse(data$sex == 1, 1, 0)
+  data$male <- ifelse(data$male == 1, 1, 0)
   data$urineprotein <- ifelse(data$urineprotein == 1, 1, 0)
   data$smoking <- ifelse(data$smoking == 1, 1, 0)
 
@@ -52,15 +51,15 @@ epoch_chd <- function(data) {
 
   # Calculate risk for each individual
   data$risk <- 1 - base^exp((61.19918 * log(data$age) +
-                             15.36389 * data$smoking +
-                             0.65869 * data$male +
-                             46.36999 * log(data$sbp) +
-                             0.56252 * data$t2dm +
-                             0.58243 * data$urineprotein +
-                             0.35931 * log(data$tc) -
-                             10.61448 * (log(data$age) * log(data$sbp)) -
-                             3.51974 * (log(data$age) * data$smoking) -
-                             betamean))
+                               15.36389 * data$smoking +
+                               0.65869 * data$male +
+                               46.36999 * log(data$sbp) +
+                               0.56252 * data$t2dm +
+                               0.58243 * data$urineprotein +
+                               0.35931 * log(data$tc) -
+                               10.61448 * (log(data$age) * log(data$sbp)) -
+                               3.51974 * (log(data$age) * data$smoking) -
+                               betamean))
 
   return(data$risk)
 }

@@ -1,6 +1,6 @@
 hisayama <- function(data) {
   # Check if all required columns are present in the data frame
-  required_cols <- c("age", "sex", "sbp", "t2dm", "hdl", "ldl", "urineprotein", "smoking", "exercise")
+  required_cols <- c("age", "male", "sbp", "t2dm", "hdl", "ldl", "urineprotein", "smoking", "exercise")
   if (!all(required_cols %in% names(data))) {
     stop("Data frame must contain the following columns: ", paste(required_cols, collapse = ", "))
   }
@@ -22,7 +22,7 @@ hisayama <- function(data) {
 
   # Convert columns to numeric
   data$age <- as.numeric(data$age)
-  data$sex <- as.numeric(data$sex)
+  data$male <- as.numeric(data$male)
   data$sbp <- as.numeric(data$sbp)
   data$t2dm <- as.numeric(data$t2dm)
   data$hdl <- as.numeric(data$hdl)
@@ -32,7 +32,7 @@ hisayama <- function(data) {
   data$exercise <- as.numeric(data$exercise)
 
   # Calculate scores
-  data$sex <- ifelse(data$sex == 1, 7, 0)
+  data$male <- ifelse(data$male == 1, 7, 0)
   data$sbp <- as.character(cut(data$sbp, breaks = c(-Inf, 120, 130, 140, 160, Inf), labels = 0:4, right = FALSE))
   data$hdl <- as.character(cut(data$hdl, breaks = c(-Inf, 40, 60, Inf), labels = 2:0, right = FALSE))
   data$ldl <- as.character(cut(data$ldl, breaks = c(-Inf, 120, 140, 160, Inf), labels = 0:3, right = FALSE))
@@ -44,7 +44,7 @@ hisayama <- function(data) {
   data$age_rank <- as.numeric(as.character(cut(data$age, breaks = c(-Inf, 50, 60, 70, 80, 85, Inf), labels = c(0, 5, 11, 16, 20, 20), right = FALSE)))
 
   # Calculate total score
-  data$totalscore <- as.numeric(data$sex) + as.numeric(data$sbp) + as.numeric(data$hdl) + as.numeric(data$ldl) + as.numeric(data$urineprotein) + as.numeric(data$t2dm) + as.numeric(data$smoking) + as.numeric(data$exercise)
+  data$totalscore <- as.numeric(data$male) + as.numeric(data$sbp) + as.numeric(data$hdl) + as.numeric(data$ldl) + as.numeric(data$urineprotein) + as.numeric(data$t2dm) + as.numeric(data$smoking) + as.numeric(data$exercise)
 
   # Calculate risk
   risk <- 1 - 0.9696^exp((data$totalscore + data$age_rank) * 0.144 - 2.4767)
